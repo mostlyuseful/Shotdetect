@@ -14,9 +14,9 @@ addons:
   apt:
     packages:
     - cmake
-    - gcc-5
-    - g++-5
-    - clang-3.9
+    - gcc
+    - g++
+    - clang
     - libswscale2
     - libswscale-dev
     - ffmpeg
@@ -24,21 +24,21 @@ addons:
     - libavcodec-dev
     - libavfilter-dev
     - libavformat-dev
-    - libavresample-dev
+#   - libavresample-dev
     - libavutil-dev
     - libgd2-noxpm-dev
     - libwxgtk2.8-dev
 
-before_install:
+#before_install:
 # - sudo apt-get -qq update
-  - export NUM_THREADS=4
-  - export SCRIPTS=./scripts/
+#  - export NUM_THREADS=4
+#  - export SCRIPTS=./scripts/
 
-install:
+#install:
 # - sudo -E $SCRIPTS/travis_install.sh
 
-before_script:
-  - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:/usr/local/cuda/lib64
+#before_script:
+#  - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:/usr/local/cuda/lib64
 
 script: $SCRIPTS/travis_build_and_test.sh
 
