@@ -158,8 +158,8 @@ INCLUDE_DIRECTORIES(.)
 
 # shotdetect library
 
-SET(${TARGET_NAME}_LIBRARY_SRCS src/film.cc src/graph.cc src/image.cc src/shot.cc src/xml.cc)
-SET(${TARGET_NAME}_LIBRARY_HDRS  src/film.h src/graph.h src/image.h src/shot.h src/xml.h)
+SET(${TARGET_NAME}_LIBRARY_SRCS src/film.cc src/graph.cc src/image.cc src/shot.cc src/xml.cc src/format.cc)
+SET(${TARGET_NAME}_LIBRARY_HDRS  src/film.h src/graph.h src/image.h src/shot.h src/xml.h src/format.h)
 IF(USE_POSTGRESQL)
 	SET(${TARGET_NAME}_LIBRARY_SRCS ${${TARGET_NAME}_LIBRARY_SRCS} src/bdd.cc)
 	SET(${TARGET_NAME}_LIBRARY_HDRS ${${TARGET_NAME}_LIBRARY_HDRS} src/bdd.h)
@@ -173,6 +173,8 @@ IF(USE_POSTGRESQL AND PostgreSQL_FOUND)
 	TARGET_LINK_LIBRARIES(${TARGET_NAME} ${PostgreSQL_LIBRARY})
 ENDIF()
 
+target_compile_features(${TARGET_NAME} PUBLIC cxx_generic_lambdas)
+
 # shotdetect application: gui or commandline
 
 IF(APPLE)
@@ -185,12 +187,14 @@ IF(USE_WXWIDGETS AND wxWidgets_FOUND)
     LIST(APPEND ${TARGET_NAME}_GUI_SRCS src/main.cc src/ui/dialog_help.cc src/ui/dialog_shotdetect.cc src/ui/process_video_thread.cc)
     LIST(APPEND ${TARGET_NAME}_GUI_HDRS src/ui/dialog_help.h src/ui/dialog_shotdetect.h src/ui/process_video_thread.h)
     ADD_EXECUTABLE(${TARGET_NAME}-gui ${APP_TYPE} ${SOURCES} ${${TARGET_NAME}_GUI_SRCS} ${${TARGET_NAME}_GUI_HDRS})
+	target_compile_features(${TARGET_NAME}-gui PUBLIC cxx_generic_lambdas)
 	TARGET_LINK_LIBRARIES(${TARGET_NAME}-gui ${TARGET_NAME})
     # Make this target optional to install:
     SET(TARGETS_TO_INSTALL ${TARGET_NAME}-gui)
 ELSE()
     LIST(APPEND ${TARGET_NAME}_COMMANDLINE_SRCS src/commandline.cc)
     ADD_EXECUTABLE(${TARGET_NAME}-cmd ${SOURCES} ${${TARGET_NAME}_COMMANDLINE_SRCS})
+	target_compile_features(${TARGET_NAME}-cmd PUBLIC cxx_generic_lambdas)
 	TARGET_LINK_LIBRARIES(${TARGET_NAME}-cmd ${TARGET_NAME})
     # Make this target optional to install:
     SET(TARGETS_TO_INSTALL ${TARGET_NAME}-cmd)
