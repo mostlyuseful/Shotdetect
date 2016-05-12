@@ -32,11 +32,21 @@ extern "C" {
 #include "src/film.h"
 #include "src/graph.h"
 
+#include "src/format.h"
+
 #define DEBUG
 
 int film::idfilm = 0;
 
-void film::do_stats(int frame_number) {
+void film::log_progress(string type, int position, int total)
+{
+  if (this->get_progress()) {
+    cerr << type << " " << position << " " << total << endl;
+  }
+}
+
+void film::do_stats(int frame_number)
+{
   double perctmp = percent;
   struct timeval time_now;
   struct timezone timezone;
@@ -180,9 +190,7 @@ void film::CompareFrame(AVFrame *pFrame, AVFrame *pFramePrev) {
     s.msbegin = int((frame_number * 1000) / fps);
     s.myid = shots.back().myid + 1;
 
-#ifdef DEBUG
-    cerr << "Shot log :: " << s.msbegin << endl;
-#endif
+    this->log_progress("shot", s.msbegin, duration.mstotal);
 
     /*
      * Convert to ms
@@ -414,6 +422,10 @@ int film::process() {
 
   checknumber = (samplerate * samplearg) / 1000;
 
+  const int progress_frame_interval = 100;
+  timespec last_progress_log_cputime;
+  clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &last_progress_log_cputime);
+
   /*
    * Main loop to control the movie processing flow
    */
@@ -423,6 +435,26 @@ int film::process() {
 
       if (frameFinished) {
         frame_number = pCodecCtx->frame_number;  // Current frame number
+
+        // Report progress information every N frames
+        if (frame_number % progress_frame_interval == 0) {
+
+          timespec current_progress_log_cputime;
+          clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &current_progress_log_cputime);
+          const double delta_s = [](auto start, auto end){
+              return    (double)(end.tv_sec - start.tv_sec) +
+                        1.0e-9*(double)(end.tv_nsec - start.tv_nsec);
+          }(last_progress_log_cputime, current_progress_log_cputime);
+          last_progress_log_cputime = current_progress_log_cputime;
+          const double computation_fps = 1/(delta_s / progress_frame_interval);
+
+          // this->log_progress("progress", int((frame_number * 1000) / fps), duration.mstotal);
+          const double current_secs = frame_number / fps;
+          const double duration_secs = duration.mstotal / 1000.0;
+          const double percent = current_secs / duration_secs * 100;
+          this->shotlog(fmt::format("Progress: frame={:6}, time={:.1f}s, duration={:.1f}s, percent={:.3f}%%, fps={:.1f}",
+                                               frame_number, current_secs, duration_secs, percent, computation_fps));
+        }
 
         // Convert the image into YUV444
         if (!img_ctx) {

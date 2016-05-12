@@ -23,7 +23,7 @@ class film;
 
 // Example
 // Put the file you want to analyse in the same directory of shotdetect (it not
-// mandatory but it’s easier with the command line)
+// mandatory but it's easier with the command line)
 
 // shotdetect -i myvideo.avi -o output_dir -s 75 -w -v -f -l -m -r
 
@@ -51,6 +51,7 @@ void show_help(char **argv) {
       "-n           : commandline mode (disable GUI)\n"
       "-s threshold : threshold (Default=%d)\n"
       "-i file      : input file path\n"
+      "-p           : output progress report information\n"
       "-o path      : output path\n"
       "-y year      : set the year\n"
       "-a id        : id of the movie\n"
@@ -86,7 +87,7 @@ int main(int argc, char **argv) {
   f.set_draw_yuv_graph(false);  // YUV graph is still disabled, until it works.
 
   for (;;) {
-    int c = getopt(argc, argv, "?ht:y:i:o:a:x:s:flwvmrc");
+    int c = getopt(argc, argv, "?ht:y:i:o:a:x:s:flpwvmrc");
 
     if (c < 0) {
       break;
@@ -117,6 +118,10 @@ int main(int argc, char **argv) {
       /* Generate thumbnails? */
       case 'm':
         f.set_thumb(true);
+      break;
+
+    case 'p':
+      f.set_progress(true);
         break;
 
       /* Generate XML with video metadata? */

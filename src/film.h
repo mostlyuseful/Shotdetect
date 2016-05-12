@@ -186,6 +186,8 @@ class film {
   double percent;
   /* Showing state started */
   bool show_started;
+  /* Output progress information */
+  bool progress;
   /* Draw graphs: */
   bool draw_rgb_graph;
   bool draw_hsv_graph;
@@ -198,6 +200,7 @@ class film {
   void process_audio();
   void shotlog(string message);
   void create_main_dir(void);
+  void log_progress(string message, int position, int total);
 
   /* Constructor */
   film();
@@ -222,6 +225,12 @@ class film {
   inline void set_year(int year) { this->year = year; };
   inline void set_alphaid(string alphaid) { this->alphaid = alphaid; };
   inline void set_title(string title) { this->title = title; };
+  inline void set_progress(bool progress) {
+    this->progress = progress;
+  };
+  inline bool get_progress(void)  {
+    return this->progress;
+  };
 
   inline void set_draw_rgb_graph(bool val) { this->draw_rgb_graph = val; };
   inline void set_draw_hsv_graph(bool val) { this->draw_hsv_graph = val; };
