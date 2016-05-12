@@ -3,12 +3,39 @@ language: cpp
 # Cache Ubuntu apt packages.
 cache: apt
 
+# Use Ubuntu trusty
+#sudo: required
+#dist: trusty
+
+# Use container
+sudo: false
+
+addons:
+  apt:
+    packages:
+    - cmake
+    - gcc-5
+    - g++-5
+    - clang-3.9
+    - libswscale2
+    - libswscale-dev
+    - ffmpeg
+    - libavdevice-dev
+    - libavcodec-dev
+    - libavfilter-dev
+    - libavformat-dev
+    - libavresample-dev
+    - libavutil-dev
+    - libgd2-noxpm-dev
+    - libwxgtk2.8-dev
+
 before_install:
+# - sudo apt-get -qq update
   - export NUM_THREADS=4
   - export SCRIPTS=./scripts/
 
 install:
-  - sudo -E $SCRIPTS/travis_install.sh
+# - sudo -E $SCRIPTS/travis_install.sh
 
 before_script:
   - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:/usr/local/cuda/lib64
