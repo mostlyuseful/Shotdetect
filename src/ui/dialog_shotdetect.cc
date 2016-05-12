@@ -133,7 +133,7 @@ void DialogShotDetect::FinProcess(wxCommandEvent &event) {
 
 void DialogShotDetect::AjouterFichier(wxCommandEvent &event) {
   wxFileDialog dialog(
-      this, _T ("Open file for an analyse"), wxEmptyString, wxEmptyString,
+      this, _T ("Open file for analysis"), wxEmptyString, wxEmptyString,
 #ifdef __WXMOTIF__ \
     _T ("Media files (*.avi;*.flv;*.mp4;*.mpg;*.mov;*.mp3;*.wav)|*.avi;*.flv;*.mp4;*.mpg;*.mov;*.mp3;*.wav")
 #else
