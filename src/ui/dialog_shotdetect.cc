@@ -201,7 +201,7 @@ void DialogShotDetect::ParcourirXsl(wxCommandEvent &event) {
 
 void DialogShotDetect::ProcessVideo(wxCommandEvent &event) {
   /*
-   * Copie des données pour le bon fonctionnement du film
+   * Copie des donnÃ©es pour le bon fonctionnement du film
    */
   long item, nb_item = list_films->GetItemCount();
   gettimeofday(&time_start, &time_zone);
@@ -225,7 +225,7 @@ void DialogShotDetect::ProcessVideo(wxCommandEvent &event) {
     xml *x = new xml(&(films.front()));
     x->xsl_path = text_chemin_xsl->GetLineText(0).ToAscii();
 /*
- * Attention : sous windows, le séparateur est un \\
+ * Attention : sous windows, le sÃ©parateur est un \\
  */
 #ifdef __WINDOWS__
     x->xsl_name.assign(x->xsl_path, x->xsl_path.rfind("\\") + 1,
@@ -367,29 +367,29 @@ void DialogShotDetect::do_layout() {
   SizerPrincipal->Add(sizer_ids, 1, wxEXPAND, 0);
 
   /*
-   * Méta données : prénom auteur
+   * MÃ©ta donnÃ©es : prÃ©nom auteur
    */
   sizer_prenom->Add(label_prenom, 0, wxADJUST_MINSIZE, 0);
   sizer_prenom->Add(text_auteur_prenom, 0, wxEXPAND, 0);
 
   /*
-   * Méta données : nom auteur
+   * MÃ©ta donnÃ©es : nom auteur
    */
   sizer_nom->Add(label_nom, 0, wxADJUST_MINSIZE, 0);
   sizer_nom->Add(text_auteur_nom, 0, wxEXPAND, 0);
 
   /*
-   * Méta données : titre de l'oeuvre
+   * MÃ©ta donnÃ©es : titre de l'oeuvre
    */
   sizer_titre->Add(label_titre, 0, wxADJUST_MINSIZE, 0);
   sizer_titre->Add(text_titre, 0, wxEXPAND, 0);
 
   /*
-   * Méta données : abstract
+   * MÃ©ta donnÃ©es : abstract
    */
 
   /*
-   * Méta données : année de l'oeuvre
+   * MÃ©ta donnÃ©es : annÃ©e de l'oeuvre
    */
   sizer_annee->Add(label_annee, 0, wxADJUST_MINSIZE, 0);
   sizer_annee->Add(text_annee, 0, wxEXPAND, 0);
