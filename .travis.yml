@@ -12,8 +12,11 @@ sudo: false
 
 addons:
   apt:
+    sources:
+    - george-edison55-precise-backports # cmake 3.x
     packages:
     - cmake
+    - cmake-data
     - gcc
     - g++
     - clang
