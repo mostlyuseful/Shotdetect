@@ -34,12 +34,6 @@ extern "C" {
 
 #include "src/format.h"
 
-// Shim for older libav versions, e.g. for Travis CI
-#if LIBAVCODEC_VERSION_INT < AV_VERSION_INT(55,28,1)
-#   define av_frame_alloc  avcodec_alloc_frame
-#   define av_frame_free avcodec_free_frame
-#endif
-
 #define DEBUG
 
 int film::idfilm = 0;

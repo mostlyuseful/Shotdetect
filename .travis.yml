@@ -8,11 +8,11 @@ compiler:
 cache: apt
 
 # Use Ubuntu trusty
-#sudo: required
-#dist: trusty
+sudo: required
+dist: trusty
 
 # Use container
-sudo: false
+#sudo: false
 
 addons:
   apt:
