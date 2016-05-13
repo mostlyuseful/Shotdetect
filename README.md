@@ -1,4 +1,4 @@
-![Build status](https://api.travis-ci.org/mostlyuseful/Shotdetect.svg?branch=master)
+[![Build status](https://api.travis-ci.org/mostlyuseful/Shotdetect.svg?branch=master)][https://travis-ci.org/mostlyuseful/Shotdetect]
 
 Shotdetect is a free software (LGPL) which detects shots and scenes from a video.
 The result produced is a simple XML file containing all the informations about the movie generated.
