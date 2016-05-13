@@ -154,7 +154,7 @@ ENDIF()
 # shotdetect
 
 SET(TARGET_NAME "shotdetect")
-INCLUDE_DIRECTORIES(.)
+INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR})
 
 # shotdetect library
 
