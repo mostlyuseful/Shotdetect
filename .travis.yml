@@ -27,7 +27,6 @@ addons:
     - clang
     - libswscale2
     - libswscale-dev
-    - ffmpeg
     - libavdevice-dev
     - libavcodec-dev
     - libavfilter-dev
