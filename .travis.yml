@@ -17,7 +17,7 @@ dist: trusty
 addons:
   apt:
     sources:
-    - george-edison55-precise-backports # cmake 3.x
+    #- george-edison55-precise-backports # cmake 3.x
     - ubuntu-toolchain-r-test # gcc/g++ 5.x
     packages:
     - cmake
@@ -38,6 +38,9 @@ addons:
     - libwxgtk2.8-dev
 
 before_script:
+  - sudo add-apt-repository -y ppa:george-edison55/cmake-3.x
+  - sudo apt-get update -q
+  - sudo apt-get install -y cmake-data cmake
   - export NUM_THREADS=4
   - export OMP_NUM_THREADS=4
   - export SCRIPTS=./scripts/
