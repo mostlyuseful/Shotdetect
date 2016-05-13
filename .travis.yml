@@ -1,9 +1,5 @@
 language: cpp
 
-compiler:
-  - clang
-  - gcc
-
 # Cache Ubuntu apt packages.
 cache: apt
 
@@ -44,7 +40,7 @@ before_script:
   - export OMP_NUM_THREADS=4
   - export SCRIPTS=./scripts/
 
-script: $SCRIPTS/travis_build_and_test.sh
+script: bash $SCRIPTS/travis_build_and_test.sh
 
 notifications:
 # Emails are sent to the committer's git-configured email address by default,
