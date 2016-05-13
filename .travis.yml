@@ -1,5 +1,9 @@
 language: cpp
 
+compiler:
+  - clang
+  - gcc
+
 # Cache Ubuntu apt packages.
 cache: apt
 
@@ -14,11 +18,12 @@ addons:
   apt:
     sources:
     - george-edison55-precise-backports # cmake 3.x
+    - ubuntu-toolchain-r-test # gcc/g++ 5.x
     packages:
     - cmake
     - cmake-data
-    - gcc
-    - g++
+    - gcc-5
+    - g++-5
     - clang
     - libswscale2
     - libswscale-dev
@@ -34,6 +39,7 @@ addons:
 
 before_script:
   - export NUM_THREADS=4
+  - export OMP_NUM_THREADS=4
   - export SCRIPTS=./scripts/
 
 script: $SCRIPTS/travis_build_and_test.sh
