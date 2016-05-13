@@ -29,16 +29,9 @@ addons:
     - libgd2-noxpm-dev
     - libwxgtk2.8-dev
 
-#before_install:
-# - sudo apt-get -qq update
-#  - export NUM_THREADS=4
-#  - export SCRIPTS=./scripts/
-
-#install:
-# - sudo -E $SCRIPTS/travis_install.sh
-
-#before_script:
-#  - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:/usr/local/cuda/lib64
+before_script:
+  - export NUM_THREADS=4
+  - export SCRIPTS=./scripts/
 
 script: $SCRIPTS/travis_build_and_test.sh
 
