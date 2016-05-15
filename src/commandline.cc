@@ -84,7 +84,7 @@ int main(int argc, char **argv) {
   // Set default settings:
   f.set_draw_rgb_graph(true);
   f.set_draw_hsv_graph(true);
-  f.set_draw_yuv_graph(false);  // YUV graph is still disabled, until it works.
+  f.set_draw_yuv_graph(false);  // YUV graph is still disabled, until it works. <-- This is misleading. YUV data is still computed, although not drawn.
 
   for (;;) {
     int c = getopt(argc, argv, "?ht:y:i:o:a:x:s:flpwvmrc");
