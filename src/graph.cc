@@ -14,6 +14,7 @@
  * johmathe $ $Date: 2010-10-01 01:02:58 +0200 (Fri, 01 Oct 2010) $
  */
 #include "src/graph.h"
+#include "format.h"
 
 using namespace std;
 
@@ -217,7 +218,6 @@ void graph::draw_canvas(gdImagePtr im, string title, graph_color colorset) {
   int tick_length;
   bool is_second, is_minute, is_hour;
   int hour, minute, second, frame;
-  char timecode[11];
   int frames;
 
   gdImageFilledRectangle(im, 0, 0, xsize, ysize, colorset.background);
@@ -262,12 +262,40 @@ void graph::draw_canvas(gdImagePtr im, string title, graph_color colorset) {
         // Write video position as grid label:
         // printf("%d:%02d:%02d.%02d\n", hour, minute, second, frame);
         if (this->f->show_timecode == true) {
-          sprintf(timecode, "%d:%02d:%02d.%02d", hour, minute, second, frame);
+            string timecode = fmt::format("{}:{:02}:{:02}.{:02}", hour, minute, second, frame);
 
-          gdImageString(im, gdFontGetLarge(),
-                        x - (strlen(timecode) * gdFontGetLarge()->w / 2),
-                        xaxis_offset + 8, (unsigned char *)timecode,
-                        colorset.timecode);
+            {
+                // Since gdImageString insists on taking a "unsigned char*", not a const pointer
+                // which would be way saner (it's there since C90!), we have two choices here:
+                // A) copy the C++ string to a writable buffer
+                // B) cast away the constness
+                // Both achieve the same, but let me explain why A is better and why it's still
+                // preferable to just use a char array all the way from sprintf to libgd.
+                // Option (B) violates the contract of std::string.c_str() by giving a writable
+                // char buffer to the consuming method. We principally don't know what libgd
+                // is going to do to the underlying memory. (Well, I read the source of gdImageString,
+                // so I know they are just reading it, which makes non-const even more
+                // bewildering, but I digress). Option (A) is much more boilerplate code and warrants
+                // this long comment block, apparently. But we trade more source lines, CPU time and
+                // memory for a very precious thing: Reasonable behavior. Yes, it's silly to copy
+                // that string, but we avoid all the traps of raw pointers.
+                // </rant>
+
+                //
+                // Copy timecode string to memory block that is RAII-managed. It will be freed automatically
+                //
+                const int n = timecode.length();
+                // Reserve one extra character for the null-byte
+                std::unique_ptr <char[]> timecode_cstr (new char[n+1]);
+                timecode.copy(timecode_cstr.get(), n, 0);
+                timecode_cstr[n] = 0x0;
+
+                // Draw as centered string
+                gdImageString(im, gdFontGetLarge(),
+                              x - (n * gdFontGetLarge()->w / 2),
+                              xaxis_offset + 8, reinterpret_cast<unsigned char*>(timecode_cstr.get()),
+                              colorset.timecode);
+            }
         }
       }
       // if (!(i % grid_size)) //CF
