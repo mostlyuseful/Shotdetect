@@ -118,12 +118,13 @@ int image::SaveFrame(AVFrame *pFrame, int frame_number) {
   if (f->get_thumb()) {
     /* Name of image file */
     str.str("");
-    if (this->type == BEGIN)
+    if (this->type == BEGIN){
       str << f->alphaid << "/thumbs/" << f->alphaid << "_" << s_id << "-"
           << s_frame_number << "_in.jpg";
-    else
+    } else {
       str << f->alphaid << "/thumbs/" << f->alphaid << "_" << s_id << "-"
           << s_frame_number << "_out.jpg";
+    }
 
     thumb = str.str();
     str.str("");
