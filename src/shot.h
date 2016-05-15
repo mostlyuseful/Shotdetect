@@ -14,13 +14,13 @@ class shot {
  public:
   int myid;
 
-  /* Durée en frame */
+  /* DurÃ©e en frame */
   int fduration;
-  /* Stating point (frame) */
+  /* Starting point (frame) */
   int fbegin;
-  /* Durée en ms */
+  /* DurÃ©e en ms */
   double msduration;
-  /* Début en ms */
+  /* DÃ©but en ms */
   double msbegin;
   /* img */
   image *img_begin;
