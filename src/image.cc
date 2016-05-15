@@ -18,6 +18,7 @@
 #include <iostream>
 #include <sstream>
 #include <stdlib.h>
+#include "format.h"
 
 int image::create_img_dir() {
   /*
@@ -110,11 +111,8 @@ int image::SaveFrame(AVFrame *pFrame, int frame_number) {
   }
 
   /* Pad numbers to constant string width: */
-  char s_id[10];
-  char s_frame_number[9];
-
-  sprintf(s_id, "%05d", id);
-  sprintf(s_frame_number, "%06d", frame_number);
+  std::string s_id = fmt::format("{:05}",id);
+  std::string s_frame_number = fmt::format("{:06}", frame_number);
 
   /* Creating file and saving it */
   if (f->get_thumb()) {
