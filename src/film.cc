@@ -112,7 +112,11 @@ void film::get_yuv_colors(AVFrame &pFrame) {
     }
   }
 
-  g->push_yuv(c1, c2, c3);
+  const double nbpix = width * height;
+  const double c1avg = c1tot/nbpix;
+  const double c2avg = c2tot/nbpix;
+  const double c3avg = c3tot/nbpix;
+  g->push_yuv(c1avg, c2avg, c3avg);
 }
 
 /*
