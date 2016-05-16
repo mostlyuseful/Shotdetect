@@ -31,8 +31,8 @@ extern "C" {
 }
 #include "src/film.h"
 #include "src/graph.h"
-
 #include "src/format.h"
+#include <thread>
 
 #define DEBUG
 
@@ -301,6 +301,17 @@ void film::shotlog(string message) {
   }
 }
 
+static unsigned int maxThreadCount() {
+    char const* env_threads_buf = getenv("NUM_THREADS");
+    if(env_threads_buf != nullptr){
+        int env_threads = std::stoi(env_threads_buf);
+        return std::max(1, env_threads);
+    } else {
+        // hardware_concurrency() may return 0, clamp to 1 thread in that case
+        return std::max(1U, std::thread::hardware_concurrency());
+    }
+}
+
 int film::process() {
   int audioSize;
   int frameFinished;
@@ -377,6 +388,8 @@ int film::process() {
    */
   if (videoStream != -1) {
     pCodecCtx = pFormatCtx->streams[videoStream]->codec;
+    pCodecCtx->thread_type = FF_THREAD_FRAME | FF_THREAD_SLICE;
+    pCodecCtx->thread_count = maxThreadCount();
     pCodec = avcodec_find_decoder(pCodecCtx->codec_id);
 
     if (pCodec == NULL) return -1;  // Codec not found
