@@ -29,6 +29,15 @@ IF ( MINGW AND CMAKE_TOOLCHAIN_FILE)
 	SET(PKG_CONFIG_EXECUTABLE ${PKG_CONFIG_EXECUTABLE} CACHE STRING "pkg-config")
 ENDIF()
 
+# Dependency: OpenMP (required)
+
+FIND_PACKAGE(OpenMP REQUIRED)
+IF(NOT OPENMP_FOUND)
+    message(FATAL_ERROR "OpenMP was not found. Please use a compiler that supports it.")
+ENDIF()
+SET(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
+
 # Dependency: FFmpeg (required)
 
 FIND_PACKAGE( FFmpeg )
