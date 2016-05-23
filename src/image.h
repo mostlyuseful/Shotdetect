@@ -27,7 +27,7 @@ extern "C" {
 #include <sys/stat.h>
 #include <unistd.h>
 
-#include "src/film.h"
+#include <film.h>
 
 #include <gd.h>
 #ifdef WXWIDGETS

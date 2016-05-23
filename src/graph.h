@@ -13,8 +13,8 @@
 #include <gdfontl.h>
 #include <iostream>
 
-#include "src/film.h"
-#include "src/processing.h"
+#include <film.h>
+#include <processing.h>
 #define SIZE_DATA 180000
 #define JPG 1
 #define PNG 2

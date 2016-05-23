@@ -5,7 +5,7 @@
 
 #ifndef __SHOT_H__
 #define __SHOT_H__
-#include "src/image.h"
+#include <image.h>
 
 class image;
 

@@ -6,7 +6,7 @@
 #ifndef __CONF_H__
 #define __CONF_H__
 
-#include "src/film.h"
+#include <film.h>
 
 class conf {
  public:

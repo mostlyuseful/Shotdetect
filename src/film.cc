@@ -21,7 +21,7 @@
 #ifdef WXWIDGETS
 #include <wx/msgdlg.h>
 #include <wx/thread.h>
-#include "src/ui/dialog_shotdetect.h"
+#include <ui/dialog_shotdetect.h>
 #endif
 
 #include <sys/time.h>
@@ -29,10 +29,10 @@
 extern "C" {
 #include <libswscale/swscale.h>
 }
-#include "src/film.h"
-#include "src/graph.h"
-#include "src/format.h"
-#include "src/processing.h"
+#include <film.h>
+#include <graph.h>
+#include <format.h>
+#include <processing.h>
 #include <thread>
 
 #define DEBUG

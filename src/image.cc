@@ -13,12 +13,12 @@
  * Boston, MA 02110-1301 USA $Id: image.cpp 115 2007-03-02 17:13:27Z
  * johmathe $
  */
-#include "src/image.h"
-#include "src/conf.h"
+#include <image.h>
+#include <conf.h>
 #include <iostream>
 #include <sstream>
 #include <stdlib.h>
-#include "format.h"
+#include <format.h>
 
 int image::create_img_dir() {
   /*

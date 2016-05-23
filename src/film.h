@@ -28,10 +28,10 @@ extern "C" {
 #include <wx/wx.h>
 #endif
 
-#include "src/image.h"
-#include "src/shot.h"
-#include "src/xml.h"
-#include "src/graph.h"
+#include <image.h>
+#include <shot.h>
+#include <xml.h>
+#include <graph.h>
 
 #include <string>
 #include <iostream>
