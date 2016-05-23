@@ -32,6 +32,7 @@ extern "C" {
 #include "src/film.h"
 #include "src/graph.h"
 #include "src/format.h"
+#include "src/processing.h"
 #include <thread>
 
 #define DEBUG
@@ -91,29 +92,9 @@ void film::create_main_dir() {
 }
 
 void film::get_yuv_colors(AVFrame &pFrame) {
-  int c1tot = 0;
-  int c2tot = 0;
-  int c3tot = 0;
-
-  // Parallelize YUV summing over rows
-  #pragma omp parallel for reduction(+:c1tot,c2tot,c3tot)
-  for (int y = 0; y < height; ++y) {
-    for (int x = 0; x < width; ++x) {
-      auto c1 = pFrame.data[0][pFrame.linesize[0] * y + x];  // Y
-      auto c2 = pFrame.data[1][pFrame.linesize[0] * y + x];  // Cb
-      auto c3 = pFrame.data[2][pFrame.linesize[0] * y + x];  // Cr
-
-      c1tot += c1;
-      c2tot += c2;
-      c3tot += c3;
-    }
-  }
-
-  const double nbpix = width * height;
-  const double c1avg = c1tot/nbpix;
-  const double c2avg = c2tot/nbpix;
-  const double c3avg = c3tot/nbpix;
-  g->push_yuv(c1avg, c2avg, c3avg);
+#warning This method is only useful for graphing. But it is also called when graphing is disabled!
+  auto yuv_average = processing::get_yuv_colors(pFrame);
+  g->push_yuv(yuv_average);
 }
 
 /*

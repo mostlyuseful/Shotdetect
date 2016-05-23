@@ -14,6 +14,7 @@
 #include <iostream>
 
 #include "src/film.h"
+#include "src/processing.h"
 #define SIZE_DATA 180000
 #define JPG 1
 #define PNG 2
@@ -170,6 +171,10 @@ class graph {
     yuv_components.c2 = cu;
     yuv_components.c3 = cv;
     colors_yuv.push_back(yuv_components);
+  }
+
+  inline void push_yuv(processing::YUVTriple yuv) {
+      push_yuv(yuv.y, yuv.u, yuv.v);
   }
 
   inline void push_rgb(int red, int green, int blue) {

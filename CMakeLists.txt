@@ -167,8 +167,8 @@ INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR})
 
 # shotdetect library
 
-SET(${TARGET_NAME}_LIBRARY_SRCS src/film.cc src/graph.cc src/image.cc src/shot.cc src/xml.cc src/format.cc)
-SET(${TARGET_NAME}_LIBRARY_HDRS  src/film.h src/graph.h src/image.h src/shot.h src/xml.h src/format.h)
+SET(${TARGET_NAME}_LIBRARY_SRCS src/film.cc src/graph.cc src/image.cc src/shot.cc src/xml.cc src/format.cc src/processing.cc)
+SET(${TARGET_NAME}_LIBRARY_HDRS  src/film.h src/graph.h src/image.h src/shot.h src/xml.h src/format.h src/processing.h)
 IF(USE_POSTGRESQL)
 	SET(${TARGET_NAME}_LIBRARY_SRCS ${${TARGET_NAME}_LIBRARY_SRCS} src/bdd.cc)
 	SET(${TARGET_NAME}_LIBRARY_HDRS ${${TARGET_NAME}_LIBRARY_HDRS} src/bdd.h)
