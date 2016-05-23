@@ -91,24 +91,21 @@ void film::create_main_dir() {
 }
 
 void film::get_yuv_colors(AVFrame &pFrame) {
-  int x;
-  int y;
-  int c1, c2, c3;
-  int c1tot, c2tot, c3tot;
+  int c1tot = 0;
+  int c2tot = 0;
+  int c3tot = 0;
 
-  c1tot = 0;
-  c2tot = 0;
-  c3tot = 0;
+  // Parallelize YUV summing over rows
+  #pragma omp parallel for reduction(+:c1tot,c2tot,c3tot)
+  for (int y = 0; y < height; ++y) {
+    for (int x = 0; x < width; ++x) {
+      auto c1 = pFrame.data[0][pFrame.linesize[0] * y + x];  // Y
+      auto c2 = pFrame.data[1][pFrame.linesize[0] * y + x];  // Cb
+      auto c3 = pFrame.data[2][pFrame.linesize[0] * y + x];  // Cr
 
-  for (y = 0; y < height; y++) {
-    for (x = 0; x < width; x++) {
-      c1 = pFrame.data[0][pFrame.linesize[0] * y + x];  // Y
-      c2 = pFrame.data[1][pFrame.linesize[0] * y + x];  // Cb
-      c3 = pFrame.data[2][pFrame.linesize[0] * y + x];  // Cr
-
-      c1tot += int(c1);
-      c2tot += int(c2);
-      c3tot += int(c3);
+      c1tot += c1;
+      c2tot += c2;
+      c3tot += c3;
     }
   }
 
