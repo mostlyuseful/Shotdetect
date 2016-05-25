@@ -27,6 +27,7 @@
 #include <sys/time.h>
 #include <time.h>
 extern "C" {
+#include <libavutil/imgutils.h>
 #include <libswscale/swscale.h>
 }
 #include <film.h>
@@ -389,10 +390,11 @@ int film::process() {
      * fields for it
      */
     // RGB:
-    avpicture_alloc((AVPicture *)pFrameRGB, AV_PIX_FMT_RGB24, width, height);
-    avpicture_alloc((AVPicture *)pFrameRGBprev, AV_PIX_FMT_RGB24, width, height);
+    const int alignment = 32;
+    av_image_alloc(pFrameRGB->data, pFrameRGB->linesize, width, height, AV_PIX_FMT_RGB24, alignment);
+    av_image_alloc(pFrameRGBprev->data, pFrameRGBprev->linesize, width, height, AV_PIX_FMT_RGB24, alignment);
     // YUV:
-    avpicture_alloc((AVPicture *)pFrameYUV, AV_PIX_FMT_YUV444P, width, height);
+    av_image_alloc(pFrameYUV->data, pFrameYUV->linesize, width, height, AV_PIX_FMT_YUV444P, alignment);
 
     /*
      * Mise en place du premier plan
