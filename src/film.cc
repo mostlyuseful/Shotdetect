@@ -355,9 +355,16 @@ int film::process() {
     // RGB:
     const int alignment = 32;
     av_image_alloc(pFrameRGB->data, pFrameRGB->linesize, width, height, AV_PIX_FMT_RGB24, alignment);
+    //
+    pFrameRGB->width = width;
+    pFrameRGB->height = height;
     av_image_alloc(pFrameRGBprev->data, pFrameRGBprev->linesize, width, height, AV_PIX_FMT_RGB24, alignment);
+    pFrameRGBprev->width = width;
+    pFrameRGBprev->height = height;
     // YUV:
     av_image_alloc(pFrameYUV->data, pFrameYUV->linesize, width, height, AV_PIX_FMT_YUV444P, alignment);
+    pFrameYUV->width = width;
+    pFrameYUV->height = height;
 
     /*
      * Mise en place du premier plan

@@ -32,6 +32,11 @@ YUVTriple get_yuv_colors(AVFrame const &frame) {
 
 FrameDiff abs_frame_difference(AVFrame const *pFrame, AVFrame const *pFramePrev, bool compute_averages){
 
+    if( (pFrame->width==0) || (pFramePrev->width==0) ||
+        (pFrame->height==0) || (pFramePrev->height==0)
+            ){
+        throw FrameDimensionsNotSet();
+    }
     if ( (pFrame->width != pFramePrev->width) ||
          (pFrame->height != pFramePrev->height) ) {
         throw FrameDimensionsDiffer();
@@ -72,7 +77,7 @@ FrameDiff abs_frame_difference(AVFrame const *pFrame, AVFrame const *pFramePrev,
     }
 
     const unsigned int nbpx = (height * width);
-    const double abs_norm_diff = round(static_cast<double>(abs_diff) / nbpx);
+    const double abs_norm_diff = static_cast<double>(abs_diff) / nbpx;
 
     FrameDiff result;
     result.abs_diff = abs_diff;

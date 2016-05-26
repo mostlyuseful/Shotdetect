@@ -16,6 +16,11 @@ public:
     FrameDimensionsDiffer(): std::runtime_error("The dimensions (width and/or height) of the frames are not equal.") {}
 };
 
+class FrameDimensionsNotSet: public std::runtime_error {
+public:
+    FrameDimensionsNotSet(): std::runtime_error("The dimensions (width and/or height) of the frame(s) are not set.") {}
+};
+
 struct YUVTriple {
     double y,u,v;
 };
