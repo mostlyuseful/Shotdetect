@@ -93,9 +93,10 @@ void film::create_main_dir() {
 }
 
 void film::get_yuv_colors(AVFrame &pFrame) {
-#warning This method is only useful for graphing. But it is also called when graphing is disabled!
-  auto yuv_average = processing::get_yuv_colors(pFrame);
-  g->push_yuv(yuv_average);
+    if(this->draw_yuv_graph){
+        auto yuv_average = processing::get_yuv_colors(pFrame);
+        g->push_yuv(yuv_average);
+    }
 }
 
 /*
