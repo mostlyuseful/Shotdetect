@@ -31,8 +31,8 @@ enum {
   ID_QUIT
 };
 
-#include "src/ui/dialog_help.h"
-#include "src/ui/process_video_thread.h"
+#include <ui/dialog_help.h>
+#include <ui/process_video_thread.h>
 class film;
 class HelpFrame;
 class DialogShotDetect : public wxDialog {

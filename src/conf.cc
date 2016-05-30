@@ -14,7 +14,7 @@
  * johmathe $ $Date: 2007-04-03 16:43:56 +0200 (Tue, 03 Apr 2007) $
  */
 
-#include "src/conf.h"
+#include <conf.h>
 
 extern char *conf_file;
 

@@ -15,9 +15,9 @@
  * 2007) $
  */
 
-#include "src/ui/dialog_shotdetect.h"
-#include "src/ui/process_video_thread.h"
-#include "src/ui/dialog_help.h"
+#include <ui/dialog_shotdetect.h>
+#include <ui/process_video_thread.h>
+#include <ui/dialog_help.h>
 
 class HelpFrame;
 void DialogShotDetect::OnQuit(wxCloseEvent &) {

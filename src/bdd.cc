@@ -21,7 +21,7 @@
  * 10:58:30 +0100 (mer, 21 fév 2007) $
  */
 
-#include "src/bdd.h"
+#include <bdd.h>
 
 // http://casteyde.christian.free.fr/cpp/cours/online/c5501.html#AEN5702
 // http://docs.postgresqlfr.org/8.1/libpq-exec.html

@@ -12,8 +12,8 @@
 #include <wx/msgdlg.h>
 #include <wx/wx.h>
 
-#include "src/film.h"
-#include "src/ui/dialog_shotdetect.h"
+#include <film.h>
+#include <ui/dialog_shotdetect.h>
 
 #ifndef __WXPROCESSVIDEOTHREAD_H__
 #define __WXPROCESSVIDEOTHREAD_H__

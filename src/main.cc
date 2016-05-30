@@ -18,10 +18,10 @@
 #include <wx/image.h>
 #include <wx/cmdline.h>
 
-#include "src/version.h"
-#include "src/film.h"
-#include "src/xml.h"
-#include "src/ui/dialog_shotdetect.h"
+#include <version.h>
+#include <film.h>
+#include <xml.h>
+#include <ui/dialog_shotdetect.h>
 
 class xml;
 class film;

@@ -16,7 +16,7 @@
 #include <wx/wx.h>
 #include <wx/textctrl.h>
 
-#include "src/ui/dialog_help.h"
+#include <ui/dialog_help.h>
 
 using namespace std;
 HelpFrame::HelpFrame(wxWindow* parent, wxWindowID id, const wxString& title,
