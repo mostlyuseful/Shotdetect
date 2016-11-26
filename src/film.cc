@@ -93,6 +93,7 @@ void film::create_main_dir() {
 }
 
 void film::get_yuv_colors(AVFrame &pFrame) {
+    // If graphing is enabled, compute YUV averages and report them
     if(this->draw_yuv_graph){
         auto yuv_average = processing::get_yuv_colors(pFrame);
         g->push_yuv(yuv_average);
