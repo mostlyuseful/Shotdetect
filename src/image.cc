@@ -63,7 +63,9 @@ int image::create_img_dir() {
 }
 
 int image::SaveFrame(AVFrame *pFrame, int frame_number) {
+  // TODO Takes a long time. Better idea is to push the raw data in a queue and process it in another thread.
   // c->thumb_height set to 84
+  // FIXME this->height_thumb and width_thumb are set but not used.
   int width_s = (THUMB_HEIGHT * this->width) / this->height;
   int height_s = THUMB_HEIGHT;
   FILE *jpgout;

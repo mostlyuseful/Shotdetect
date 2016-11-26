@@ -426,6 +426,7 @@ int film::process() {
 
         // Convert the image into YUV444
         if (!img_ctx) {
+            #warning Potential to subsample image
             int flags = SWS_BICUBIC;
           img_ctx =
               sws_getContext(width, height, pCodecCtx->pix_fmt, width, height,
@@ -439,6 +440,7 @@ int film::process() {
 
         // Convert the image into RGB24
         if (!img_convert_ctx) {
+            #warning Potential to subsample image
             int flags = SWS_BICUBIC;
           img_convert_ctx =
               sws_getContext(width, height, pCodecCtx->pix_fmt, width, height,
@@ -535,6 +537,7 @@ int film::process() {
     if (video_set) {
       string xml_color = graphpath + "/" + alphaid + "_video.xml";
       g->write_xml(xml_color);
+      // TODO Add progressive json output
     }
     g->save();
 
