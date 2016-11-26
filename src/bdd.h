@@ -11,7 +11,7 @@
 #include <string.h>
 #include <iostream>
 #include <string>
-#include "src/film.h"
+#include <film.h>
 
 // http://docs.postgresqlfr.org/8.1/libpq-exec.html
 // http://www.postgresql.org/docs/8.1/interactive/libpq.html#LIBPQ-CONNECT
