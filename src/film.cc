@@ -426,9 +426,10 @@ int film::process() {
 
         // Convert the image into YUV444
         if (!img_ctx) {
+            int flags = SWS_BICUBIC;
           img_ctx =
               sws_getContext(width, height, pCodecCtx->pix_fmt, width, height,
-                             AV_PIX_FMT_YUV444P, SWS_BICUBIC, NULL, NULL, NULL);
+                             AV_PIX_FMT_YUV444P, flags, NULL, NULL, NULL);
           if (!img_ctx) {
             fprintf(stderr,
                     "Cannot initialize the converted YUV image context!\n");
@@ -438,9 +439,10 @@ int film::process() {
 
         // Convert the image into RGB24
         if (!img_convert_ctx) {
+            int flags = SWS_BICUBIC;
           img_convert_ctx =
               sws_getContext(width, height, pCodecCtx->pix_fmt, width, height,
-                             AV_PIX_FMT_RGB24, SWS_BICUBIC, NULL, NULL, NULL);
+                             AV_PIX_FMT_RGB24, flags, NULL, NULL, NULL);
           if (!img_convert_ctx) {
             fprintf(stderr,
                     "Cannot initialize the converted RGB image context!\n");
